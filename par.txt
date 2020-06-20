@@ -1,0 +1,6 @@
+
+:start
+print "Hi, whats your name?"
+input (name) "Name? "
+print "Hello, {name}"
+input (sys) "Press Enter to close:"
