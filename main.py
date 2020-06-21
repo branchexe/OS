@@ -30,13 +30,16 @@ def RightClickPos(event):
     RightWindow = Toplevel(Desktop) #create new window
     RightWindowButton1 = Button(RightWindow, text="Color options").grid(row=0)
     RightWindowButton2 = Button(RightWindow, text="Other options").grid(row=1)
-    
+            
     RightWindow.overrideredirect(1) #get rid of min/max buttons
     #set position
     x = root.winfo_x()
     y = root.winfo_y()
     RightWindow.geometry("+%d+%d" % (x + event.x, y + event.y))
     Desktop.bind("<Button-1>", RightWindowDestroy) #Destory TopLevel
+    #detect mouse leaving RightWindow
+
+
 
 
 #create desktop frame
