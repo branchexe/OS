@@ -32,12 +32,12 @@ def RightClickPos(event):
         DesktopColorOptionMenu = Toplevel(root);
         DesktopColorOptionMenu.overrideredirect(1) #get rid of min/max buttons
 
-        DesktopRedButton = Button(DesktopColorOptionMenu, text="Red", bg="Red", fg="white", padx=20,pady=20, command=partial(DesktopColorRed, DesktopColorOptionMenu)).grid(row=0, column=0);
-        DesktopGreenButton = Button(DesktopColorOptionMenu, text="Green", bg="Green", fg="white", padx=20,pady=20, command=partial(DesktopColorGreen, DesktopColorOptionMenu)).grid(row=0, column=1);
-        DesktopBlueButton = Button(DesktopColorOptionMenu, text="Blue", bg="Blue", fg="white", padx=20,pady=20, command=partial(DesktopColorBlue, DesktopColorOptionMenu)).grid(row=0, column=2);
-        DesktopYellowButton = Button(DesktopColorOptionMenu, text="yellow", bg="yellow", fg="black", padx=20,pady=20, command=partial(DesktopColorYellow, DesktopColorOptionMenu)).grid(row=1, column=0);
-        DesktopPurpleButton = Button(DesktopColorOptionMenu, text="purple", bg="purple", fg="white", padx=20,pady=20, command=partial(DesktopColorPurple, DesktopColorOptionMenu)).grid(row=1, column=1);
-        DesktopOrangeButton = Button(DesktopColorOptionMenu, text="orange", bg="orange", fg="white", padx=20,pady=20, command=partial(DesktopColorOrange, DesktopColorOptionMenu)).grid(row=1, column=2);
+        DesktopRedButton = Button(DesktopColorOptionMenu, text="Red", bg="#ff4242", fg="white", padx=20,pady=20, command=partial(DesktopColorRed, DesktopColorOptionMenu)).grid(row=0, column=0);
+        DesktopGreenButton = Button(DesktopColorOptionMenu, text="Green", bg="#42ff84", fg="white", padx=20,pady=20, command=partial(DesktopColorGreen, DesktopColorOptionMenu)).grid(row=0, column=1);
+        DesktopBlueButton = Button(DesktopColorOptionMenu, text="Blue", bg="#42a4ff", fg="white", padx=20,pady=20, command=partial(DesktopColorBlue, DesktopColorOptionMenu)).grid(row=0, column=2);
+        DesktopYellowButton = Button(DesktopColorOptionMenu, text="yellow", bg="#fff942", fg="black", padx=20,pady=20, command=partial(DesktopColorYellow, DesktopColorOptionMenu)).grid(row=1, column=0);
+        DesktopPurpleButton = Button(DesktopColorOptionMenu, text="purple", bg="#d342ff", fg="white", padx=20,pady=20, command=partial(DesktopColorPurple, DesktopColorOptionMenu)).grid(row=1, column=1);
+        DesktopOrangeButton = Button(DesktopColorOptionMenu, text="orange", bg="#ffc042", fg="white", padx=20,pady=20, command=partial(DesktopColorOrange, DesktopColorOptionMenu)).grid(row=1, column=2);
 
         #position
         x = root.winfo_x()
@@ -48,22 +48,22 @@ def RightClickPos(event):
 
         #desktop color change
     def DesktopColorRed(ColorMenu):
-        Desktop.config(bg="red")
+        Desktop.config(bg="#ff4242")
         ColorMenu.destroy()
     def DesktopColorGreen(ColorMenu):
-        Desktop.config(bg="green")
+        Desktop.config(bg="#42ff84")
         ColorMenu.destroy()
     def DesktopColorBlue(ColorMenu):
-        Desktop.config(bg="blue")
+        Desktop.config(bg="#42a4ff")
         ColorMenu.destroy()
     def DesktopColorYellow(ColorMenu):
-        Desktop.config(bg="yellow")
+        Desktop.config(bg="#fff942")
         ColorMenu.destroy()
     def DesktopColorPurple(ColorMenu):
-        Desktop.config(bg="purple")
+        Desktop.config(bg="#d342ff")
         ColorMenu.destroy()
     def DesktopColorOrange(ColorMenu):
-        Desktop.config(bg="orange")
+        Desktop.config(bg="#ffc042")
         ColorMenu.destroy()
     
     #destroys the right window after use
@@ -86,7 +86,7 @@ def RightClickPos(event):
 
 
 #create desktop frame
-Desktop = Frame(root, bg="#0059b3", width=512, height=512-25)
+Desktop = Frame(root, bg="#42a4ff", width=512, height=512-25)
 Desktop.bind("<Button-3>", RightClickPos) #call rightclick event
 Desktop.pack()
 
