@@ -1,6 +1,6 @@
 from tkinter import *
 from time import *
-import functools;
+from functools import partial;
 
 #gets current time and updates display
 def displayTime():
@@ -8,7 +8,6 @@ def displayTime():
     currentDate = strftime("%m/%d/%Y")
     timeLabel.config(text=currentTime + "  " + currentDate, padx=5)
     root.after(200,displayTime) #set timer to redo function
-
 
 
 #       ~~~~~~~~~~~~~~~setup stuff~~~~~~~~~~~~~~~
@@ -25,58 +24,65 @@ root.configure(bg="yellow")
 #Right clicks on desktop
 def RightClickPos(event):
 
-    #desktop color change
-    def DesktopColorRed():
-        Desktop.config(bg="red")
-    def DesktopColorGreen():
-        Desktop.config(bg="green")
-    def DesktopColorBlue():
-        Desktop.config(bg="blue")
-    def DesktopColorYellow():
-        Desktop.config(bg="yellow")
-    def DesktopColorPurple():
-        Desktop.config(bg="purple")
-    def DesktopColorOrange():
-        Desktop.config(bg="orange")
-
-
     #Desktop Color Change Menu
     def ChangeDesktopColor():
-        RightWindowDestroy(event)
+        def DesktopColorDestroy(event):
+            DesktopColorOptionMenu.destroy();
+        RightWindowDestroy(event) #get rid of rightclick window
         DesktopColorOptionMenu = Toplevel(root);
         DesktopColorOptionMenu.overrideredirect(1) #get rid of min/max buttons
 
-        DesktopRedButton = Button(DesktopColorOptionMenu, text="Red", bg="Red", fg="white", padx=20,pady=20, command=DesktopColorRed).grid(row=0, column=0);
-        DesktopGreenButton = Button(DesktopColorOptionMenu, text="Green", bg="Green", fg="white", padx=20,pady=20, command=DesktopColorGreen).grid(row=0, column=1);
-        DesktopBlueButton = Button(DesktopColorOptionMenu, text="Blue", bg="Blue", fg="white", padx=20,pady=20, command=DesktopColorBlue).grid(row=0, column=2);
-        DesktopYellowButton = Button(DesktopColorOptionMenu, text="yellow", bg="yellow", fg="black", padx=20,pady=20, command=DesktopColorYellow).grid(row=1, column=0);
-        DesktopPurpleButton = Button(DesktopColorOptionMenu, text="purple", bg="purple", fg="white", padx=20,pady=20, command=DesktopColorPurple).grid(row=1, column=1);
-        DesktopOrangeButton = Button(DesktopColorOptionMenu, text="orange", bg="orange", fg="white", padx=20,pady=20, command=DesktopColorOrange).grid(row=1, column=2);
+        DesktopRedButton = Button(DesktopColorOptionMenu, text="Red", bg="Red", fg="white", padx=20,pady=20, command=partial(DesktopColorRed, DesktopColorOptionMenu)).grid(row=0, column=0);
+        DesktopGreenButton = Button(DesktopColorOptionMenu, text="Green", bg="Green", fg="white", padx=20,pady=20, command=partial(DesktopColorGreen, DesktopColorOptionMenu)).grid(row=0, column=1);
+        DesktopBlueButton = Button(DesktopColorOptionMenu, text="Blue", bg="Blue", fg="white", padx=20,pady=20, command=partial(DesktopColorBlue, DesktopColorOptionMenu)).grid(row=0, column=2);
+        DesktopYellowButton = Button(DesktopColorOptionMenu, text="yellow", bg="yellow", fg="black", padx=20,pady=20, command=partial(DesktopColorYellow, DesktopColorOptionMenu)).grid(row=1, column=0);
+        DesktopPurpleButton = Button(DesktopColorOptionMenu, text="purple", bg="purple", fg="white", padx=20,pady=20, command=partial(DesktopColorPurple, DesktopColorOptionMenu)).grid(row=1, column=1);
+        DesktopOrangeButton = Button(DesktopColorOptionMenu, text="orange", bg="orange", fg="white", padx=20,pady=20, command=partial(DesktopColorOrange, DesktopColorOptionMenu)).grid(row=1, column=2);
 
         #position
         x = root.winfo_x()
         y = root.winfo_y()
         DesktopColorOptionMenu.geometry("+%d+%d" % (x+50, y+50))
+        Desktop.bind("<Button-1>", DesktopColorDestroy)
 
+
+        #desktop color change
+    def DesktopColorRed(ColorMenu):
+        Desktop.config(bg="red")
+        ColorMenu.destroy()
+    def DesktopColorGreen(ColorMenu):
+        Desktop.config(bg="green")
+        ColorMenu.destroy()
+    def DesktopColorBlue(ColorMenu):
+        Desktop.config(bg="blue")
+        ColorMenu.destroy()
+    def DesktopColorYellow(ColorMenu):
+        Desktop.config(bg="yellow")
+        ColorMenu.destroy()
+    def DesktopColorPurple(ColorMenu):
+        Desktop.config(bg="purple")
+        ColorMenu.destroy()
+    def DesktopColorOrange(ColorMenu):
+        Desktop.config(bg="orange")
+        ColorMenu.destroy()
     
+    #destroys the right window after use
     def RightWindowDestroy(event):
         RightWindow.destroy()
-    Desktop.focus_set();
+
+    #Main Right Window
     RightWindow = Toplevel(Desktop) #create new window
+    
+    Desktop.focus_set();
     RightWindowButton1 = Button(RightWindow, text="Color options", command=ChangeDesktopColor).grid(row=0)
-    RightWindowButton2 = Button(RightWindow, text="Other options").grid(row=1)
-                    
+    RightWindowButton2 = Button(RightWindow, text="Other options").grid(row=1)    
     RightWindow.overrideredirect(1) #get rid of min/max buttons
     #set position
     x = root.winfo_x()
     y = root.winfo_y()
     RightWindow.geometry("+%d+%d" % (x + event.x, y + event.y))
-    Desktop.bind("<Button-1>", RightWindowDestroy) #Destory TopLevel
-    RightWindow.bind("<Button-3>", RightWindowDestroy) #Destory TopLevel
-    
-
-
-
+     #Destory TopLevel on leftclick
+    #RightWindow.bind('<Leave>', RightWindowDestroy);
 
 
 #create desktop frame
